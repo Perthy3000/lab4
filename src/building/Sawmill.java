@@ -12,6 +12,8 @@ import ui.ItemIcon;
 public class Sawmill extends Building implements ItemProducer {
 
 	private static final int HARVEST_INTERVAL = 3;
+	private int currentCycle = 0;
+	//private int woodInStock = 0;
 	
 	@Override
 	public void render(StackPane target) {
@@ -19,7 +21,7 @@ public class Sawmill extends Building implements ItemProducer {
 		target.getChildren().add(icon);
 		
 		// TODO: fill this boolean
-		boolean readyToProduceWood;		// is this sawmill ready to produce wood?
+		boolean readyToProduceWood = canProduceItem();		// is this sawmill ready to produce wood?
 		
 		if(readyToProduceWood) {
 			ItemIcon itemIcon = ItemType.WOOD.toItemIcon();
@@ -27,4 +29,25 @@ public class Sawmill extends Building implements ItemProducer {
 			target.getChildren().add(itemIcon);
 		}
 	}
+	
+	@Override
+	public void operate() {
+		if(currentCycle < HARVEST_INTERVAL) {
+			currentCycle++;			
+		}
+	}
+
+	@Override
+	public boolean canProduceItem() {
+		if(currentCycle == HARVEST_INTERVAL) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public Item getProducedItem() {
+		return Item.wood();
+	}
+
 }
