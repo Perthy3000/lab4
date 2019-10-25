@@ -4,6 +4,8 @@ import item.Item;
 import item.ItemType;
 
 public interface ItemReceiver {
-	// delete the following line and FILL CODE
-	THIS SHOULD FAIL TO COMPILE
+	
+	boolean canRecieveItem(ItemType oftype);
+	
+	void recieveItem(Item item);
 }

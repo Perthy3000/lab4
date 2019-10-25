@@ -3,6 +3,9 @@ package building.base;
 import item.Item;
 
 public interface ItemProducer {
-	// delete the following line and FILL CODE
-	THIS SHOULD FAIL TO COMPILE
+	
+	boolean canProduceItem();
+	
+	Item getProducedItem();
+	
 }
