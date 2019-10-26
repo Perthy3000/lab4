@@ -46,7 +46,7 @@ public class Anvil extends ElectricBuilding implements ItemProducer, ItemReceive
 	
 	@Override
 	public void operate() {
-		if(currentCycle < CRAFT_DELAY && consumeElectricity() && canProduceItem()) {
+		if(currentCycle < CRAFT_DELAY && consumeElectricity() && hasIronPlate && hasWood) {
 			currentCycle++;
 		}
 	}

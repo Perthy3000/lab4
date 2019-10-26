@@ -54,7 +54,7 @@ public class ConveyorBelt extends Building implements ItemReceiver, ItemProducer
 		default:
 			break;
 		}
-		
+
 		target.getChildren().add(icon);
 		
 		Item itemOnBelt = this.getItemOnBelt();
