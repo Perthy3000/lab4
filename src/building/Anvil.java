@@ -2,6 +2,7 @@ package building;
 
 import building.base.ItemProducer;
 import building.base.ItemReceiver;
+import building.base.ElectricBuilding;;
 import item.Item;
 import item.ItemType;
 import javafx.geometry.Pos;
@@ -9,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import ui.BuildingIcon;
 
-public class Anvil extends Building implements ItemProducer, ItemReceiver {
+public class Anvil extends ElectricBuilding implements ItemProducer, ItemReceiver {
 	private static final int CRAFT_DELAY = 5;
 	private static final int ENERGY_CONSUMPTION = 15;
 	
@@ -38,5 +39,41 @@ public class Anvil extends Building implements ItemProducer, ItemReceiver {
 			}
 		}
 		target.getChildren().add(status);
+	}
+	
+	@Override
+	public void operate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean canReceiveItem(ItemType oftype) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void receiveItem(Item item) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean canProduceItem() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Item getProducedItem() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void consumeElectricity() {
+		// TODO Auto-generated method stub
+		
 	}
 }

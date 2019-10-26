@@ -13,7 +13,6 @@ public class Sawmill extends Building implements ItemProducer {
 
 	private static final int HARVEST_INTERVAL = 3;
 	private int currentCycle = 0;
-	//private int woodInStock = 0;
 	
 	@Override
 	public void render(StackPane target) {
@@ -47,6 +46,7 @@ public class Sawmill extends Building implements ItemProducer {
 
 	@Override
 	public Item getProducedItem() {
+		currentCycle = 0;
 		return Item.wood();
 	}
 

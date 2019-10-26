@@ -5,7 +5,7 @@ import item.ItemType;
 
 public interface ItemReceiver {
 	
-	boolean canRecieveItem(ItemType oftype);
+	boolean canReceiveItem(ItemType oftype);
 	
-	void recieveItem(Item item);
+	void receiveItem(Item item);
 }
