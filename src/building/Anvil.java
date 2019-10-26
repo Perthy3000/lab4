@@ -2,17 +2,20 @@ package building;
 
 import building.base.ItemProducer;
 import building.base.ItemReceiver;
-import building.base.ElectricBuilding;;
+import building.base.ElectricBuilding;
 import item.Item;
 import item.ItemType;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import logic.GameState;
 import ui.BuildingIcon;
 
 public class Anvil extends ElectricBuilding implements ItemProducer, ItemReceiver {
 	private static final int CRAFT_DELAY = 5;
 	private static final int ENERGY_CONSUMPTION = 15;
+	private int currentCycle = 0;
+	private boolean hasWood = false, hasIronPlate = false;
 	
 	@Override
 	public void render(StackPane target) {
@@ -24,9 +27,9 @@ public class Anvil extends ElectricBuilding implements ItemProducer, ItemReceive
 		StackPane.setAlignment(status, Pos.TOP_CENTER);
 		
 		// TODO: fill this booleans
-		boolean ready;			// is this anvil ready (finished crafting iron sword)?
-		boolean hasWood;		// does this anvil has wood on it?
-		boolean hasIronPlate;	// does this anvil has an iron plate on it?
+		boolean ready = canProduceItem();			// is this anvil ready (finished crafting iron sword)?
+		boolean hasWood = this.hasWood;		// does this anvil has wood on it?
+		boolean hasIronPlate = this.hasIronPlate;	// does this anvil has an iron plate on it?
 		
 		if(ready) {
 			status.getChildren().add(ItemType.IRON_SWORD.toItemIcon());
@@ -43,37 +46,58 @@ public class Anvil extends ElectricBuilding implements ItemProducer, ItemReceive
 	
 	@Override
 	public void operate() {
-		// TODO Auto-generated method stub
-		
+		if(consumeElectricity() && currentCycle < CRAFT_DELAY) {
+			currentCycle++;
+		}
 	}
 
 	@Override
 	public boolean canReceiveItem(ItemType oftype) {
-		// TODO Auto-generated method stub
-		return false;
+		switch (oftype) {
+		case WOOD:
+			if(!hasWood) {
+				return true;
+			}
+		case IRON_PLATE:
+			if(!hasIronPlate) {
+				return true;
+			}
+		default:
+			return false;
+		}
 	}
 
 	@Override
 	public void receiveItem(Item item) {
-		// TODO Auto-generated method stub
-		
+		ItemType type = item.getType();
+		switch (type) {
+		case WOOD:
+			hasWood = true;
+			break;
+		case IRON_PLATE:
+			hasIronPlate = true;
+			break;
+		}
 	}
 
 	@Override
 	public boolean canProduceItem() {
-		// TODO Auto-generated method stub
+		if(currentCycle == CRAFT_DELAY) {
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public Item getProducedItem() {
-		// TODO Auto-generated method stub
-		return null;
+		currentCycle = 0;
+		hasWood = false;
+		hasIronPlate = false;
+		return Item.ironSword();
 	}
 
 	@Override
-	protected void consumeElectricity() {
-		// TODO Auto-generated method stub
-		
+	protected boolean consumeElectricity() {
+		return GameState.instance.consumeElectricity(ENERGY_CONSUMPTION);
 	}
 }
