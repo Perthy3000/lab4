@@ -20,7 +20,7 @@ public class TestSawmill extends GameTest {
 		sawmill = new Sawmill();
 		Field.instance.at(0, 0).placeBuildingOnCell(sawmill);
 	}
-	
+
 	@Test
 	void testOperate() {
 		assertFalse(sawmill.canProduceItem());
